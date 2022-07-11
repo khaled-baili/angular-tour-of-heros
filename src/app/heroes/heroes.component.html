@@ -1,0 +1,42 @@
+<div class="heros-component">
+  <div class="title">My HEROES</div>
+<!--  <ul class="heroes">-->
+<!--    <li *ngFor="let hero of heroes" >-->
+<!--      <a routerLink="/detail/{{hero.id}}">-->
+<!--        <span class="badge">{{hero.id}}</span> {{hero.name}}-->
+<!--      </a>-->
+<!--      <button type="button" class="delete" title="delete hero"-->
+<!--              (click)="delete(hero)">x</button>-->
+<!--    </li>-->
+<!--  </ul>-->
+  <dx-data-grid
+    id="gridContainer"
+    [dataSource]="heroes"
+    keyExpr="id"
+    [columns]="['id', 'name']"
+    [showBorders]="true"
+    (onRowInserting)="add($event.data.name)"
+    (onRowRemoving)="delete($event.data)"
+  >
+  >
+    <dxo-editing
+      [allowUpdating]="true"
+      [allowAdding]="true"
+      [allowDeleting]="true"
+      mode="row"> <!-- 'batch' | 'cell' | 'form' | 'popup' -->
+    </dxo-editing>
+  </dx-data-grid>
+<!--  <div>-->
+<!--    <label for="new-hero">Hero name: </label>-->
+<!--    <input id="new-hero" #heroName />-->
+<!--    &lt;!&ndash; (click) passes input value to add() and then clears the input &ndash;&gt;-->
+<!--    <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">-->
+<!--      Add hero-->
+<!--    </button>-->
+<!--  </div>-->
+
+</div>
+
+
+
+

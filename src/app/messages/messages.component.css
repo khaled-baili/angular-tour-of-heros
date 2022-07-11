@@ -1,0 +1,16 @@
+.message-component {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  position: absolute;
+  background-color: #A60A0A;
+  height: fit-content;
+  width: 250px;
+  border-radius: 25px;
+  color: white;
+  left: 20px;
+  bottom: 20px;
+  margin-top: 60px;
+  align-items: center;
+
+}

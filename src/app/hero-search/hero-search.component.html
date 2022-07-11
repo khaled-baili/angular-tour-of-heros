@@ -1,0 +1,49 @@
+<div class="global-search-comp" #globalSearchComp>
+  <div class="search-component" #searchComponent>
+    <div class="flex dx-field">
+      <div class="dx-field-label">Choose a language</div>
+      <div class="dx-field-value" >
+        <dx-select-box #dropDown
+          [dataSource]="languageList"
+          (onValueChanged)="getLgSelected($event)"
+        >
+        </dx-select-box>
+      </div>
+    </div>
+    <div class="flex flex-row ">
+      <dx-button
+        stylingMode="contained"
+        text="Start"
+        type="success"
+        [width]="120"
+        (onClick)="startService()"
+      >
+      </dx-button>
+      &nbsp;&nbsp;
+      &nbsp;&nbsp;
+      <dx-button
+        stylingMode="contained"
+        text="Stop"
+        type="danger"
+        [width]="120"
+        (onClick)="stopService()"
+      >
+      </dx-button>
+    </div>
+    <div id="search-component" #searchPanel>
+      <div #searchInput class="search-input">
+        <label #searchLabel for="search-box" style="color: white; font-size: 25px;">Hero Search</label>
+        <input #searchBox id="search-box" [(ngModel)]="service.text" (ngModelChange)="search(searchBox.value)"/>
+      </div>
+      <ul class="search-result">
+        <li *ngFor="let hero of heroes$ | async">
+          <a routerLink="/detail/{{hero.id}}">
+            {{hero.name}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+

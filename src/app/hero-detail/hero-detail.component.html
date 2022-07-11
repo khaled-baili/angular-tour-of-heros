@@ -1,0 +1,21 @@
+<div class="hero-details" *ngIf="hero">
+  <div class="title">{{hero.name | uppercase}} Details</div>
+  <div class="hero-info">
+    <div><span>Id: </span>{{hero.id}}</div>
+    <label for="hero-name">Hero name: </label> <br>
+    <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+  </div>
+  <br><br>
+<div>
+  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+          type="button" (click)="save()">
+    save
+  </button> &nbsp;&nbsp;&nbsp;&nbsp;
+  <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+          type="button" (click)="goBack()">
+    go back
+  </button>
+</div>
+
+
+</div>
