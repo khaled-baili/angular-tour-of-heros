@@ -53,7 +53,6 @@ export class VoiceRecognitionService {
   stop() {
     this.isStoppedSpeechRecog = true;
     this.recognition.stop();
-
     console.log("End speech recognition");
   }
 

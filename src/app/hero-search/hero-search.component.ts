@@ -38,18 +38,10 @@ export class HeroSearchComponent implements OnInit, AfterViewInit {
 
   }
 
-
   ngAfterViewInit(): void {
     this.renderer.listen(this.globalSearchComp?.nativeElement,'click',(e: Event)=> {
-      if (e.target == this.searchComponent?.nativeElement
-        || e.target == this.searchPanel?.nativeElement
-        || e.target == this.searchBox?.nativeElement
-        || e.target == this.searchInput?.nativeElement
-        || e.target == this.searchLabel?.nativeElement
-        || e.target == this.dropDown?.nativeElement
-      ) {
-      } else {
-        // this._location.back()
+      if (e.target == this.globalSearchComp?.nativeElement) {
+        this._location.back()
       }
     });
     }
