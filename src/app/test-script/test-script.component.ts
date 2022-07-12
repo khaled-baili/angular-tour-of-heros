@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BehaviorSubject, from, multicast, ReplaySubject, Subject} from 'rxjs'
+import {AsyncSubject, BehaviorSubject, from, multicast, ReplaySubject, Subject} from 'rxjs'
 @Component({
   selector: 'app-test-script',
   templateUrl: './test-script.component.html',
@@ -14,7 +14,7 @@ export class TestScriptComponent implements OnInit {
   }
 
   test():void {
-    const subject = new ReplaySubject(3); // buffer 3 values for new subscribers
+    const subject = new AsyncSubject();
 
     subject.subscribe({
       next: (v) => console.log(`observerA: ${v}`),
@@ -30,6 +30,9 @@ export class TestScriptComponent implements OnInit {
     });
 
     subject.next(5);
+    subject.complete();
+
+
   }
 
 

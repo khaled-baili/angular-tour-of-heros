@@ -16,6 +16,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DxButtonModule, DxDataGridModule, DxPopupModule, DxSelectBoxModule} from "devextreme-angular";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +42,7 @@ import {DxButtonModule, DxDataGridModule, DxPopupModule, DxSelectBoxModule} from
         DxPopupModule,
         DxDataGridModule,
         DxSelectBoxModule,
+        FontAwesomeModule
     ],
   providers: [],
   bootstrap: [AppComponent]

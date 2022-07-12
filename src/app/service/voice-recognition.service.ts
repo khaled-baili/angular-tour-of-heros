@@ -16,19 +16,19 @@ export class VoiceRecognitionService {
   init() {
     this.recognition.interimResults = true;
     this.recognition.lang = 'en-US';
-    this.recognition.addEventListener('nomatch', (e: Event) => {
-      this.text = "unable to recognize the word"
-    });
-
-    this.recognition.addEventListener('error ', (e: Error) => {
-      this.text = 'Error occurred in recognition: ' + e.message
-    });
     this.recognition.addEventListener('result', (e: { results: Iterable<unknown> | ArrayLike<unknown>; }) => {
       const transcript = Array.from(e.results)
         .map((result:any) => result[0])
         .map((result) => result.transcript)
         .join('');
       this.tempWords = transcript;
+    });
+    this.recognition.addEventListener('nomatch', (e: Event) => {
+      this.text = "unable to recognize the word"
+    });
+
+    this.recognition.addEventListener('error ', (e: Error) => {
+      this.text = 'Error occurred in recognition: ' + e.message
     });
 
 

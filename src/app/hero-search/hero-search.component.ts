@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges,
+import {
+  AfterViewInit, Component, ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges,
   ViewChild
 } from '@angular/core';
 import {BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subject, switchMap} from "rxjs";
@@ -9,6 +10,7 @@ import {Location} from "@angular/common";
 import {NavbarComponent} from "../layout/navbar/navbar.component";
 import {VoiceRecognitionService} from "../service/voice-recognition.service";
 import {LanguageService} from "../service/language.service";
+import {faMicrophone} from "@fortawesome/free-solid-svg-icons/faMicrophone";
 
 @Component({
   selector: 'app-hero-search',
@@ -18,16 +20,12 @@ import {LanguageService} from "../service/language.service";
 export class HeroSearchComponent implements OnInit, AfterViewInit {
   outSideClick$ = new BehaviorSubject(false);
   heroes$!: Observable<Heros[]>;
-  @ViewChild('searchComponent') searchComponent?: ElementRef;
   @ViewChild('globalSearchComp') globalSearchComp?: ElementRef;
-  @ViewChild('searchPanel') searchPanel?: ElementRef;
-  @ViewChild('searchBox') searchBox?: ElementRef;
-  @ViewChild('searchInput') searchInput?: ElementRef;
-  @ViewChild('searchLabel') searchLabel?: ElementRef;
-  @ViewChild('dropDown') dropDown?: ElementRef;
+  startRecording: Boolean = false;
   private searchTerms = new Subject<string>();
   serviceStarted = false;
   languageList: string[] = [];
+  mic = faMicrophone;
   constructor(private heroService: HeroService,
               private renderer: Renderer2,
               private _location: Location,
@@ -39,21 +37,29 @@ export class HeroSearchComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderer.listen(this.globalSearchComp?.nativeElement,'click',(e: Event)=> {
+    this.renderer.listen(this.globalSearchComp?.nativeElement, 'click', (e: Event) => {
       if (e.target == this.globalSearchComp?.nativeElement) {
         this._location.back()
       }
     });
-    }
+  }
 
 
 
 
-  // Push a search term into the observable stream.
   search(value: String): void {
     this.searchTerms.next(value.trim());
   }
 
+  clickMic(): void {
+    if (!this.startRecording) {
+      this.startRecording = true;
+      this.service.start();
+    } else {
+      this.startRecording = false;
+      this.service.stop();
+    }
+  }
 
   ngOnInit(): void {
     this.getLanguageName();
@@ -71,27 +77,29 @@ export class HeroSearchComponent implements OnInit, AfterViewInit {
       next: (v) => this.search(v),
     });
   }
-  async startService(){
+
+  async startService() {
     this.service.start();
 
   }
 
-  stopService(){
+  stopService() {
     this.service.stop();
   }
-  getLanguageName():void {
-    this.languageService.getLanguages().map(lang=> {
+
+  getLanguageName(): void {
+    this.languageService.getLanguages().map(lang => {
       this.languageList?.push(lang.language)
     })
   }
-  getLgSelected(e: any):void {
-    this.languageService.getLanguages().map(lang=> {
+
+  getLgSelected(e: any): void {
+    this.languageService.getLanguages().map(lang => {
       if (lang.language === e.value) {
         this.service.recognition.lang = lang.languageCode;
       }
     })
   }
-
 
 
 }
